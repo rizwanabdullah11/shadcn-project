@@ -9,6 +9,14 @@ import {
   Plus,
   Projector,
   ChevronDown,
+  BarChart3,
+  Users,
+  CreditCard,
+  FileText,
+  MessageSquare,
+  Bell,
+  HelpCircle,
+  LogOut,
 } from "lucide-react";
 import {
   Sidebar,
@@ -44,42 +52,61 @@ import {
 
 const items = [
   {
-    title: "Home",
+    title: "Dashboard",
     url: "/",
     icon: Home,
+    badge: null,
   },
   {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
+    title: "Analytics",
+    url: "/analytics",
+    icon: BarChart3,
+    badge: null,
   },
   {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
+    title: "Customers",
+    url: "/customers",
+    icon: Users,
+    badge: null,
   },
   {
-    title: "Search",
-    url: "#",
-    icon: Search,
+    title: "Orders",
+    url: "/orders",
+    icon: CreditCard,
+    badge: "12",
   },
   {
-    title: "Settings",
+    title: "Reports",
+    url: "/reports",
+    icon: FileText,
+    badge: null,
+  },
+  {
+    title: "Messages",
     url: "#",
-    icon: Settings,
+    icon: MessageSquare,
+    badge: "3",
+  },
+  {
+    title: "Notifications",
+    url: "#",
+    icon: Bell,
+    badge: null,
   },
 ];
 
 const AppSidebar = () => {
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" className="border-r">
       <SidebarHeader className="py-4">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link href="/">
-                <Image src="/download.ico" alt="logo" width={30} height={20} />
-                <span>Nomi Dev</span>
+              <Link href="/" className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">N</span>
+                </div>
+                <span className="font-semibold text-lg">Nomi Dev</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -88,58 +115,63 @@ const AppSidebar = () => {
       <SidebarSeparator />
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel>Main Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <Link href={item.url}>
-                      <item.icon />
+                    <Link href={item.url} className="flex items-center gap-3">
+                      <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
-                  {item.title === "Inbox" && (
-                    <SidebarMenuBadge>24</SidebarMenuBadge>
+                  {item.badge && (
+                    <SidebarMenuBadge variant="secondary">{item.badge}</SidebarMenuBadge>
                   )}
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        
+        <SidebarSeparator />
+        
         <SidebarGroup>
           <SidebarGroupLabel>Projects</SidebarGroupLabel>
           <SidebarGroupAction>
-            <Plus /> <span className="sr-only">Add Project</span>
+            <Plus className="h-4 w-4" />
+            <span className="sr-only">Add Project</span>
           </SidebarGroupAction>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link href="/#">
-                    <Projector />
-                    See All Projects
+                  <Link href="/#" className="flex items-center gap-3">
+                    <Projector className="h-4 w-4" />
+                    <span>All Projects</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link href="/#">
-                    <Plus />
-                    Add Project
+                  <Link href="/#" className="flex items-center gap-3">
+                    <Plus className="h-4 w-4" />
+                    <span>New Project</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        
         {/* COLLAPSABLE */}
         <Collapsible defaultOpen className="group/collapsible">
           <SidebarGroup>
             <SidebarGroupLabel asChild>
-              <CollapsibleTrigger>
-                Collapsable Group
-                <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+              <CollapsibleTrigger className="flex items-center justify-between w-full">
+                <span>Tools</span>
+                <ChevronDown className="h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-180" />
               </CollapsibleTrigger>
             </SidebarGroupLabel>
             <CollapsibleContent>
@@ -147,17 +179,17 @@ const AppSidebar = () => {
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                      <Link href="/#">
-                        <Projector />
-                        See All Projects
+                      <Link href="/#" className="flex items-center gap-3">
+                        <Settings className="h-4 w-4" />
+                        <span>Settings</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                      <Link href="/#">
-                        <Plus />
-                        Add Project
+                      <Link href="/#" className="flex items-center gap-3">
+                        <HelpCircle className="h-4 w-4" />
+                        <span>Help & Support</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -166,54 +198,36 @@ const AppSidebar = () => {
             </CollapsibleContent>
           </SidebarGroup>
         </Collapsible>
-        {/* NESTED */}
-        <SidebarGroup>
-          <SidebarGroupLabel>Nested Items</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link href="/#">
-                    <Projector />
-                    See All Projects
-                  </Link>
-                </SidebarMenuButton>
-                <SidebarMenuSub>
-                  <SidebarMenuSubItem>
-                    <SidebarMenuSubButton asChild>
-                      <Link href="/#">
-                        <Plus />
-                        Add Project
-                      </Link>
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                  <SidebarMenuSubItem>
-                    <SidebarMenuSubButton asChild>
-                      <Link href="/#">
-                        <Plus />
-                        Add Category
-                      </Link>
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                </SidebarMenuSub>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton>
-                  <User2 /> Nomi <ChevronUp className="ml-auto" />
+                <SidebarMenuButton className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                    <span className="text-white font-medium text-sm">N</span>
+                  </div>
+                  <div className="flex flex-col items-start">
+                    <span className="text-sm font-medium">Nomi Dev</span>
+                    <span className="text-xs text-muted-foreground">Admin</span>
+                  </div>
+                  <ChevronUp className="ml-auto h-4 w-4" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Account</DropdownMenuItem>
-                <DropdownMenuItem>Setting</DropdownMenuItem>
-                <DropdownMenuItem>Sign out</DropdownMenuItem>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuItem>
+                  <User2 className="h-4 w-4 mr-2" />
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Settings className="h-4 w-4 mr-2" />
+                  Settings
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Sign out
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>
