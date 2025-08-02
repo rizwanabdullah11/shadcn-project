@@ -1,8 +1,5 @@
 import {
   Home,
-  Inbox,
-  Calendar,
-  Search,
   Settings,
   User2,
   ChevronUp,
@@ -31,13 +28,9 @@ import {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
   SidebarSeparator,
 } from "./ui/sidebar";
 import Link from "next/link";
-import Image from "next/image";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -83,13 +76,13 @@ const items = [
   },
   {
     title: "Messages",
-    url: "#",
+    url: "/messages",
     icon: MessageSquare,
     badge: "3",
   },
   {
     title: "Notifications",
-    url: "#",
+    url: "/notifications",
     icon: Bell,
     badge: null,
   },
@@ -98,7 +91,7 @@ const items = [
 const AppSidebar = () => {
   return (
     <Sidebar collapsible="icon" className="border-r">
-      <SidebarHeader className="py-4">
+      <SidebarHeader className="p-4">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
@@ -127,7 +120,7 @@ const AppSidebar = () => {
                     </Link>
                   </SidebarMenuButton>
                   {item.badge && (
-                    <SidebarMenuBadge variant="secondary">{item.badge}</SidebarMenuBadge>
+                    <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>
                   )}
                 </SidebarMenuItem>
               ))}
@@ -153,14 +146,14 @@ const AppSidebar = () => {
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link href="/#" className="flex items-center gap-3">
-                    <Plus className="h-4 w-4" />
-                    <span>New Project</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+                             <SidebarMenuItem>
+                 <SidebarMenuButton asChild>
+                   <Link href="/projects/new" className="flex items-center gap-3">
+                     <Plus className="h-4 w-4" />
+                     <span>New Project</span>
+                   </Link>
+                 </SidebarMenuButton>
+               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -177,22 +170,22 @@ const AppSidebar = () => {
             <CollapsibleContent>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="/#" className="flex items-center gap-3">
-                        <Settings className="h-4 w-4" />
-                        <span>Settings</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="/#" className="flex items-center gap-3">
-                        <HelpCircle className="h-4 w-4" />
-                        <span>Help & Support</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
+                                     <SidebarMenuItem>
+                     <SidebarMenuButton asChild>
+                       <Link href="/settings" className="flex items-center gap-3">
+                         <Settings className="h-4 w-4" />
+                         <span>Settings</span>
+                       </Link>
+                     </SidebarMenuButton>
+                   </SidebarMenuItem>
+                   <SidebarMenuItem>
+                     <SidebarMenuButton asChild>
+                       <Link href="/help" className="flex items-center gap-3">
+                         <HelpCircle className="h-4 w-4" />
+                         <span>Help & Support</span>
+                       </Link>
+                     </SidebarMenuButton>
+                   </SidebarMenuItem>
                 </SidebarMenu>
               </SidebarGroupContent>
             </CollapsibleContent>
