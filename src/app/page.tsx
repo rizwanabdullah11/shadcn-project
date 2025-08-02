@@ -3,7 +3,7 @@ import AppBarChart from "@/components/AppBarChart";
 import AppPieChart from "@/components/AppPieChart";
 import CardList from "@/components/CardList";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+
 import { Button } from "@/components/ui/button";
 import { 
   TrendingUp, 
@@ -25,7 +25,7 @@ const Homepage = () => {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-            <p className="text-muted-foreground">Welcome back! Here's what's happening with your projects today.</p>
+            <p className="text-muted-foreground">Welcome back! Here&apos;s what&apos;s happening with your projects today.</p>
           </div>
           <div className="flex items-center gap-3">
             <Button variant="outline" size="sm">

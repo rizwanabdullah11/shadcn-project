@@ -1,9 +1,11 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
   ArrowLeft,
@@ -14,18 +16,37 @@ import {
   Package,
   CreditCard,
   MapPin,
-  Phone,
-  Mail,
   Trash2,
   Save,
   X
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
+interface Customer {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  avatar: string;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  stock: number;
+}
+
+interface OrderItem extends Product {
+  quantity: number;
+}
+
 const NewOrderPage = () => {
-  const [selectedCustomer, setSelectedCustomer] = useState<any>(null);
-  const [selectedItems, setSelectedItems] = useState<any[]>([]);
+  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
+  const [selectedItems, setSelectedItems] = useState<OrderItem[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   const customers = [
@@ -83,7 +104,7 @@ const NewOrderPage = () => {
     }
   ];
 
-  const addItem = (product: any) => {
+  const addItem = (product: Product) => {
     const existingItem = selectedItems.find(item => item.id === product.id);
     if (existingItem) {
       setSelectedItems(selectedItems.map(item => 
@@ -215,9 +236,11 @@ const NewOrderPage = () => {
                     className="flex items-center gap-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors"
                   >
                     <div className="w-12 h-12 rounded-lg overflow-hidden">
-                      <img 
+                      <Image 
                         src={product.image} 
                         alt={product.name}
+                        width={48}
+                        height={48}
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -250,9 +273,11 @@ const NewOrderPage = () => {
                   {selectedItems.map((item) => (
                     <div key={item.id} className="flex items-center gap-3 p-3 rounded-lg border border-border">
                       <div className="w-12 h-12 rounded-lg overflow-hidden">
-                        <img 
+                        <Image 
                           src={item.image} 
                           alt={item.name}
+                          width={48}
+                          height={48}
                           className="w-full h-full object-cover"
                         />
                       </div>
@@ -297,7 +322,7 @@ const NewOrderPage = () => {
         </div>
 
         {/* Sidebar */}
-        <div className="space-y-6">
+        <div className="space-y-6 p-6">
           {/* Order Summary */}
           <Card className="hover-lift">
             <CardHeader>

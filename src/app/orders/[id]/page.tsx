@@ -13,19 +13,19 @@ import {
   MapPin,
   Phone,
   Mail,
-  Calendar,
-  DollarSign,
   CreditCard,
   Printer,
   Share,
   Edit
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
-const OrderDetailPage = ({ params }: { params: { id: string } }) => {
+const OrderDetailPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
   // Mock order data - in real app this would come from API
   const order = {
-    id: params.id,
+    id: id,
     customer: {
       name: "John Doe",
       email: "john.doe@example.com",
@@ -219,9 +219,11 @@ const OrderDetailPage = ({ params }: { params: { id: string } }) => {
                 {order.items.map((item) => (
                   <div key={item.id} className="flex items-center gap-4 p-4 rounded-lg border border-border/50">
                     <div className="w-16 h-16 rounded-lg overflow-hidden">
-                      <img 
+                      <Image 
                         src={item.image} 
                         alt={item.name}
+                        width={64}
+                        height={64}
                         className="w-full h-full object-cover"
                       />
                     </div>

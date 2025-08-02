@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Card, CardContent, CardFooter, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { ArrowUpRight, Clock, TrendingUp } from "lucide-react";
@@ -140,7 +139,7 @@ const CardList = ({ title }: { title: string }) => {
                   className="object-cover"
                 />
               </div>
-              {!isPopularContent && (
+              {!isPopularContent && 'status' in item && (
                 <div className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-background ${
                   item.status === 'completed' ? 'bg-green-500' :
                   item.status === 'pending' ? 'bg-yellow-500' :
@@ -149,10 +148,11 @@ const CardList = ({ title }: { title: string }) => {
               )}
             </div>
             
+            
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
                 <h4 className="font-medium text-sm truncate">{item.title}</h4>
-                {isPopularContent && (
+                {isPopularContent && 'trend' in item && (
                   <Badge variant="secondary" className="text-xs">
                     {item.trend}
                   </Badge>
@@ -173,7 +173,7 @@ const CardList = ({ title }: { title: string }) => {
               <div className="font-semibold text-sm">
                 ${(item.count / 1000).toFixed(1)}K
               </div>
-              {isPopularContent && (
+              {isPopularContent && 'trend' in item && (
                 <div className="flex items-center gap-1 text-xs text-green-500">
                   <TrendingUp className="h-3 w-3" />
                   {item.trend}
